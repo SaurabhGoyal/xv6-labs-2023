@@ -91,3 +91,10 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// Add a system call to xv6 that returns the amount of free memory available.
+uint64
+sys_freemem(void)
+{
+  return freemem();
+}

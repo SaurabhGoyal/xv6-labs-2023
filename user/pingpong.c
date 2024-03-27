@@ -1,6 +1,9 @@
 #include "kernel/types.h"
 #include "user/user.h"
 
+// Write a program that uses UNIX system calls to “ping-pong” a byte between two processes
+// over a pair of pipes, one for each direction. Measure the program’s performance, in exchanges per second.
+
 // read from in_pipe, write ACK to STDOUT and message to out_pipe.
 void _recv_and_rebound(int in_pipe[], int out_pipe[], char *rebound_msg) {
     char recv_msg[100];
@@ -12,6 +15,7 @@ void _recv_and_rebound(int in_pipe[], int out_pipe[], char *rebound_msg) {
 
 // Runs an infinite loop of ping-pong. Two achieve actual ping pong, it uses two pipes.
 // The STDOUT message is currently not thread-safe, i.e. both processes keep writing to STDOUT together.
+// This would fail the `make grade` test.
 // $ pingpong
 // Pid: 4, Msg: ping
 // Pid: 3, Msg: pong

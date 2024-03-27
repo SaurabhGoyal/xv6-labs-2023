@@ -80,3 +80,19 @@ kalloc(void)
     memset((char*)r, 5, PGSIZE); // fill with junk
   return (void*)r;
 }
+
+// Add a system call to xv6 that returns the amount of free memory available.
+uint64
+freemem(void)
+{
+  struct run* r;
+  uint64 numOfPages = 0;
+  acquire(&kmem.lock);
+  r = kmem.freelist;
+  while(r) {
+    numOfPages++;
+    r = r->next;
+  }
+  release(&kmem.lock);
+  return numOfPages * PGSIZE;
+}
